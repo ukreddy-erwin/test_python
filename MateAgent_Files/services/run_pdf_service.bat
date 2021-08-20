@@ -1,0 +1,1 @@
+cd pdf/cmd/ && cmd.exe

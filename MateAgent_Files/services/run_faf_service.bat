@@ -1,0 +1,1 @@
+cd faf/cmd/ && cmd.exe

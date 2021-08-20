@@ -1,0 +1,1 @@
+cd sdp/cmd/ && cmd.exe

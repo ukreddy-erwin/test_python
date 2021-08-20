@@ -1,0 +1,1 @@
+cd gateway/cmd/service && service.exe

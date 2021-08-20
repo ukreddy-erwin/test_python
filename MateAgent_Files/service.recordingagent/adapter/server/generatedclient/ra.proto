@@ -1,0 +1,38 @@
+syntax = "proto3";
+package rageneratedclient;
+option go_package = "./;rapb";
+
+service RecordingAgentService {
+  rpc RASession(stream RASessionReq) returns (stream RASessionResp) {};
+}
+
+message RASessionReq {
+  string actionName = 1;
+  repeated Dictionary raReq = 2;
+}
+
+message RASessionResp {
+  string message = 1;
+  bool status = 2;
+  string set = 3;
+  string logMessage = 4;
+  ReqResponse responseData = 5;
+}
+
+message ReqResponse {
+  string response = 1;
+  string type = 2;
+}
+
+message Dictionary {
+  string key = 1;
+  string value = 2;
+  bytes byteValue = 3;
+  repeated string listValue = 4;
+  repeated ListDictionary dictionaryValue = 5;
+}
+
+message ListDictionary {
+  string key = 1;
+  string value = 2;
+}

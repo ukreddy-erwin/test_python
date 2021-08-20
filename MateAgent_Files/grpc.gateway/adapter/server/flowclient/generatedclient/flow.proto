@@ -1,0 +1,142 @@
+syntax = "proto3";
+package generatedclient;
+option go_package = "./;flowpb";
+
+service FlowService {
+    rpc RunFlow(stream RunFlowRequest) returns (stream RunFlowResponse) {};
+    rpc RunAction(stream RunActionRequest) returns (stream RunActionResponse) {};
+    rpc RunProcess(stream RunProcessRequest) returns (stream RunProcessResponse) {};
+    rpc StopCronJob(StopCronJobRequest) returns (StopCronJobResponse) {};
+}
+
+message StopCronJobRequest {
+    string operationId = 1;
+}
+
+message StopCronJobResponse {
+    string message = 1;
+    bool status = 2;
+}
+
+message Flow {
+    Autom autom = 1;
+    repeated Action actions = 2;
+    string elementName = 3; 
+    repeated Input inputs =4;
+    repeated Output outputs = 5;
+    repeated Variable variables = 6;
+}
+
+message Variable{
+    string name = 1;
+    Type variable_type = 2;
+    string value = 3;
+    bool isInput = 4;
+    bool isOutput = 5;
+    bool isCustomizable = 6;
+}
+
+message Type{
+    string name = 1;
+}
+
+message Output {
+    string name = 1;
+    string type = 2;
+}
+
+message Input {
+    string key = 1;
+    string value = 2;
+    string type = 3;
+}
+
+message Process {
+    string id  = 1;
+    string name = 2;
+    string v = 3;
+}
+
+message RunProcessRequest {    
+    Operation operation = 1;    
+    Process process = 2;
+    repeated Flow flows = 3;
+}
+
+message RunProcessResponse {
+    string message = 1;
+    bool status = 2;
+    bytes logMessage = 3;
+    DataMessage DataMessage = 4;
+}
+
+message DataMessage{
+	string LibraryName =1;
+	string ActionName  =2;
+	string Value       =3;
+	string ValueType   =4;
+}
+
+message RunActionRequest {
+    Autom autom = 1;
+    Action action = 2;    
+}
+
+message RunActionResponse {
+    string message = 1;
+    bool status = 2;
+    repeated Dictionary data = 3; 
+}
+
+message Action {
+    string id = 1;
+    string name = 2;
+    string definition = 3;
+    Library library = 4;
+    repeated Dictionary params = 5;
+    repeated Action children = 6;
+}
+
+message Library {
+    string name = 1;
+    string v = 2;
+}
+
+message Autom {
+    string id = 1;
+    string name = 2;
+    string v = 3;
+}
+
+message Operation {
+    string id = 1;
+}
+
+message RunFlowRequest {
+    Autom autom = 1;
+    repeated Action actions = 2;
+    Operation operation = 3;
+    bool isOrchestrated = 4;
+    repeated Variable variables = 5;
+}
+
+message RunFlowResponse {
+    string message = 1;
+    bool status = 2;
+    bytes logMessage = 3;
+    DataMessage DataMessage = 4;
+}
+
+message Dictionary {
+    string key = 1;
+    oneof chooseValue {
+        string value = 2;
+        bytes byteValue = 3;
+    }
+    repeated ListDictionary dictionaryValue = 4;
+}
+
+message ListDictionary {
+    string key = 1;
+    string value = 2;
+}

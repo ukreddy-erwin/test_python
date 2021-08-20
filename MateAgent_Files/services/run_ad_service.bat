@@ -1,0 +1,1 @@
+cd ad/cmd && cmd.exe

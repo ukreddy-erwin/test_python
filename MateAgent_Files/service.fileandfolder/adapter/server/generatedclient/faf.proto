@@ -1,0 +1,52 @@
+syntax = "proto3";
+package fafgeneratedclient;
+
+option go_package = "./;fafpb";
+
+service FAFService {
+  rpc FAFSession(stream FAFSessionReq) returns (stream FAFSessionResp) {};
+}
+
+message FAFOpen {
+  string id = 1;
+  string name = 2;
+  string fileName = 3;
+  string fileType = 4;
+  bytes file = 5;
+  string openAs = 6;
+  string isHeader = 7;
+}
+
+message ReadData {
+  int32 from = 1;
+  int32 to = 2;
+}
+
+message FAFSessionReq {
+  string actionName = 1;
+  repeated Dictionary fafReq = 2;
+}
+
+message FAFSessionResp {
+  string message = 1;
+  bool status = 2;
+  repeated Dictionary data = 3;
+  string set = 4;
+  string logMessage = 5;
+}
+
+message Dictionary {
+  string key = 1;
+  string value = 2;
+  bytes byteValue = 3;
+  repeated string listValue = 4;
+}
+
+message FAFReadResp {
+  repeated string rows = 1;
+}
+
+message FAFOpenResp {
+  int32 countRow = 1;
+}
+

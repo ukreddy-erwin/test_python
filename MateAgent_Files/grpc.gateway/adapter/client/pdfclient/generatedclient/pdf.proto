@@ -1,0 +1,39 @@
+syntax = "proto3";
+package pdfgeneratedclient;
+option go_package = "./;pdfpb";
+
+service PdfService {
+  rpc PdfSession(stream PdfSessionReq) returns (stream PdfSessionResp) {};
+}
+
+message PdfSessionReq {
+  string actionName = 1;
+  string operationId = 2;
+  repeated Dictionary pdfReq = 3;
+}
+
+message PdfSessionResp {
+  string message = 1;
+  bool status = 2;
+  string set = 3;
+  string logMessage = 4;
+  repeated Dictionary data = 5;
+}
+
+message ReqResponse {
+  string response = 1;
+  string type = 2;
+}
+
+message Dictionary {
+  string key = 1;
+  string value = 2;
+  bytes byteValue = 3;
+  repeated string listValue = 4;
+  repeated ListDictionary dictionaryValue = 5;
+}
+
+message ListDictionary {
+  string key = 1;
+  string value = 2;
+}

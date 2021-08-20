@@ -1,0 +1,1 @@
+cd rws/cmd/ && cmd.exe

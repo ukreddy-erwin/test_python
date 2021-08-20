@@ -1,0 +1,9 @@
+start cmd.exe /c CALL services/run_gateway.bat
+start cmd.exe /c CALL services/run_ad_service.bat
+start cmd.exe /c CALL services/run_database_service.bat
+start cmd.exe /c CALL services/run_excel_service.bat
+start cmd.exe /c CALL services/run_faf_service.bat
+start cmd.exe /c CALL services/run_pdf_service.bat
+start cmd.exe /c CALL services/run_recordingagent_service.bat
+start cmd.exe /c CALL services/run_rws_service.bat
+start cmd.exe /c CALL services/run_sdp_service.bat
