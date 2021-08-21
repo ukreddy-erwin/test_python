@@ -1,0 +1,1 @@
+Invoke-ps2exe "C:\project\CA\checkPython.ps1" "C:\project\CA\checkPython.exe"

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SetupPrereq>
+	<files>
+		<file LocalFile="C:\project\CA\checkPython.exe" CheckSum="A24F358A6C211F16A06B4DC8F5BC957F" FileSize="0,27648"/>
+	</files>
+	<execute file="checkPython.exe" returncodetoreboot="1641,3010"/>
+	<properties Id="{2B23FEF3-0C04-476A-9B17-3C7EC219C900}" Description="This prerequisite installs the .NET Framework 4.8 Offline installer package." AltPrqURL="http://saturn.installshield.com/is/prerequisites/Microsoft .NET Framework 4.8 Full.prq"/>
+	<behavior Failure="4" Reboot="2"/>
+</SetupPrereq>

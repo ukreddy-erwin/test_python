@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SetupPrereq>
+	<conditions>
+		<condition Type="4" Comparison="1" Path="[WindowsFolder]Temp" FileName="PYTHON_REQUIRED.txt" ReturnValue=""/>
+	</conditions>
+	<files>
+		<file LocalFile="C:\project\CA\python-3.7.9-amd64.exe" CheckSum="7083FED513C3C9A4EA655211DF9ADE27" FileSize="0,26940592"/>
+	</files>
+	<execute file="python-3.7.9-amd64.exe" cmdline="/quiet InstallAllUsers=1 PrependPath=1 Include_test=0 TargetDir=&quot;C:\Program Files\MateAgent\Tools&quot;" cmdlinesilent="/quiet InstallAllUsers=1 PrependPath=1 Include_test=0 TargetDir=&quot;C:\Program Files\MateAgent\Tools&quot;" returncodetoreboot="1641,3010"/>
+	<properties Id="{CF1D0814-7EB0-439C-8D57-F175ECEC3A57}" Description="This prerequisite installs the .NET Framework 4.8 Offline installer package."/>
+	<behavior Reboot="2"/>
+</SetupPrereq>
