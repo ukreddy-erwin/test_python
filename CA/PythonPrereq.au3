@@ -22,10 +22,25 @@ EndFunc
 
 $ps = FindFileInPath("powershell.exe", @SystemDir&"\WindowsPowerShell")
 $temp_cmd = """"& $ps & """ -ExecutionPolicy Bypass -windowstyle hidden -noninteractive -File """ & @ScriptDir & "\checkPython.ps1"""
-Local $iReturn = RunWait($temp_cmd,@ScriptDir,@SW_HIDE, $STDOUT_CHILD)
-ConsoleWrite($temp_cmd & @CRLF)
-
+Local $iReturn = RunWait($temp_cmd,@ScriptDir,@SW_HIDE);, $STDOUT_CHILD)
+Logging($temp_cmd & @CRLF)
+Logging("Checked python version from environment variable with result code: "&$iReturn)
+if FileExists(@WindowsDir&"\Temp\PYTHON_REQUIRED.txt") then
+   Logging("Python installation is required")
 $vb = FindFileInPath("cscript.exe", @SystemDir)
 $temp_cmd = """"& $vb & """ """ & @ScriptDir & "\PythonInstall.vbs"""
-ConsoleWrite($temp_cmd)
-Local $iReturn = RunWait($temp_cmd,@ScriptDir,@SW_HIDE, $STDOUT_CHILD)
+Logging($temp_cmd)
+Local $iReturn = RunWait($temp_cmd,@ScriptDir,@SW_HIDE); ,$STDOUT_CHILD
+FileDelete(@WindowsDir&"\Temp\PYTHON_REQUIRED.txt")
+Else
+   Logging("Not required to install python")
+EndIf
+
+
+Func Logging($sMessage,$sLogFile=@TempDir&"\checkPython.log")
+	If $sMessage = "" Then
+		FileWriteLine($sLogFile, "")
+	Else
+		FileWrite($sLogFile, "Ran by user: " & @UserName & " : " & _NowCalc() & " :: " & $sMessage&@CRLF)
+	EndIf
+EndFunc
