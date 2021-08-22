@@ -5,11 +5,14 @@ Set oShell = CreateObject("WScript.Shell")
 
 Const iTidyDivLen = 127
 
-'folder = "C:\Program Files\MateAgent\"
-folder = Session.Property("CustomActionData")
+folder = "C:\Program Files\MateAgent\"
+'folder = Session.Property("CustomActionData")
 python_folder = folder&"Tools"
-temp_folder = folder&"temp"
-RunInstallation temp_folder&"\python-3.7.9-amd64.exe","/quiet InstallAllUsers=1 PrependPath=1 Include_test=0 TargetDir="""&python_folder&"""","0,3010",True
+'temp_folder = folder&"temp"
+temp_folder = oFso.GetParentFolderName(WScript.ScriptFullName)
+'RunInstallation temp_folder&"\python-3.7.9-amd64.exe","/quiet InstallAllUsers=1 PrependPath=1 Include_test=0 TargetDir="""&python_folder&"""","0,3010",True
+
+
 
 Function RunInstallation(sSetup, sParams, sSuccessfulCodes, bExitOnFailure)
 	Log ""

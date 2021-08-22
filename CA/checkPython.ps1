@@ -1,4 +1,5 @@
 ﻿$tmp = $($env:temp)+"\upgradelogic.log" #New-TemporaryFile
+$sd = Split-Path $script:MyInvocation.MyCommand.Path
 function WriteLog($sMsg)
 {
 	$sMsg | Out-File $tmp -Append
@@ -26,7 +27,9 @@ elseif($pythonVersion.startswith('Python')){
 
 if($PYTHON_REQUIRED -eq $true)
 {
+    WriteLog "$sd is the current working directory"
     $true | Out-File $($($env:windir)+"\temp\PYTHON_REQUIRED.txt")
+    #cscript.exe $($sd+"\PythonInstall.vbs")
 }
 else{
     echo "Not required"
