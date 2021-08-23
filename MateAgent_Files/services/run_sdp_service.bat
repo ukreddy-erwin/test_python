@@ -1,1 +1,1 @@
-cd sdp/cmd/ && cmd.exe
+cd ../service.servicedeskplus/cmd/ && cmd.exe

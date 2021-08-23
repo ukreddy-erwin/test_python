@@ -1,1 +1,1 @@
-cd recordingagent/cmd/ && cmd.exe
+cd ../service.recordingagent/cmd/ && cmd.exe

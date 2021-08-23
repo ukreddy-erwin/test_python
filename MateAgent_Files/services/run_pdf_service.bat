@@ -1,1 +1,1 @@
-cd pdf/cmd/ && cmd.exe
+cd ../service.pdf/cmd/ && cmd.exe

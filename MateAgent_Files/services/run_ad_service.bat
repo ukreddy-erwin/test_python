@@ -1,1 +1,1 @@
-cd ad/cmd && cmd.exe
+cd ../service.activedirectory/cmd && cmd.exe

@@ -29,3 +29,7 @@ sc delete %service_name%
 set service_name=run_gateway
 net stop %service_name%
 sc delete %service_name%
+
+set service_name=run_sdp_service
+net stop %service_name%
+sc delete %service_name%

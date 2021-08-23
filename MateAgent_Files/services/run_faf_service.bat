@@ -1,1 +1,1 @@
-cd faf/cmd/ && cmd.exe
+cd ../service.fileandfolder/cmd/ && cmd.exe

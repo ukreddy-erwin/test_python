@@ -1,1 +1,1 @@
-cd database/cmd/ && cmd.exe
+cd ../service.database/cmd/ && cmd.exe

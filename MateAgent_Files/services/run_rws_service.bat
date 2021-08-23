@@ -1,1 +1,1 @@
-cd rws/cmd/ && cmd.exe
+cd ../service.restfulwebservice/cmd/ && cmd.exe

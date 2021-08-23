@@ -1,1 +1,1 @@
-cd excel/cmd/ && cmd.exe
+cd ../service.excel/cmd/ && cmd.exe
