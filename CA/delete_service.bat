@@ -1,35 +1,21 @@
-set service_name=run_ad_service
-net stop %service_name%
-sc delete %service_name%
+set main=%~dp0
+"%main%nssm.exe" stop MAGateway
+"%main%nssm.exe" stop MAAD
+"%main%nssm.exe" stop MADB
+"%main%nssm.exe" stop MAEXCEL
+"%main%nssm.exe" stop MAPDF
+"%main%nssm.exe" stop MAFAF
+"%main%nssm.exe" stop MARWS
+"%main%nssm.exe" stop MASDP
+"%main%nssm.exe" stop MARA
 
-set service_name=run_database_service
-net stop %service_name%
-sc delete %service_name%
 
-set service_name=run_excel_service
-net stop %service_name%
-sc delete %service_name%
-
-set service_name=run_faf_service
-net stop %service_name%
-sc delete %service_name%
-
-set service_name=run_pdf_service
-net stop %service_name%
-sc delete %service_name%
-
-set service_name=run_recordingagent_service
-net stop %service_name%
-sc delete %service_name%
-
-set service_name=run_rws_service
-net stop %service_name%
-sc delete %service_name%
-
-set service_name=run_gateway
-net stop %service_name%
-sc delete %service_name%
-
-set service_name=run_sdp_service
-net stop %service_name%
-sc delete %service_name%
+"%main%nssm.exe" remove MAGateway confirm
+"%main%nssm.exe" remove MAAD confirm
+"%main%nssm.exe" remove MADB confirm
+"%main%nssm.exe" remove MAEXCEL confirm
+"%main%nssm.exe" remove MAPDF confirm
+"%main%nssm.exe" remove MAFAF confirm
+"%main%nssm.exe" remove MARWS confirm
+"%main%nssm.exe" remove MASDP confirm
+"%main%nssm.exe" remove MARA confirm

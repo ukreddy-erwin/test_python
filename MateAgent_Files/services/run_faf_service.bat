@@ -1,1 +1,0 @@
-cd ../service.fileandfolder/cmd/ && cmd.exe

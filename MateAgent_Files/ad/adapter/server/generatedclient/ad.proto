@@ -1,0 +1,55 @@
+syntax = "proto3";
+package adgeneratedclient;
+
+option go_package = "./;adpb";
+
+service ActiveDirectoryService {
+  rpc ActiveDirectorySession(stream AdSessionReq) returns (stream AdSessionResp) {};
+}
+
+message CreateUserReq {
+  string disabled = 1;
+  string userName = 2;
+  string logonName = 3;
+  string firstName = 4;
+  string lastName = 5;
+  string displayName = 6;
+  string emailAddress = 7;
+  string department = 8;
+  string title = 9;
+}
+
+message LdapConnectReq {
+  string ldapServer = 1;
+  string baseDN = 2;
+  string loginUser = 3;
+  string loginPassword = 4;
+}
+
+message AdSessionReq {
+  string actionName = 1;
+  repeated Dictionary adReq = 2;
+}
+
+message AdSessionResp {
+  string message = 1;  
+  bool status = 2;
+  repeated Dictionary data = 3;
+  string set = 4;
+  string logMessage = 5;
+}
+
+message Dictionary {
+  string key = 1;
+  string value = 2;
+  bytes byteValue = 3;
+  repeated string listValue = 4;
+}
+
+message CreateUserResp {
+  string dn = 1;
+}
+
+message LdapConnectResp {
+  string test = 1;
+}

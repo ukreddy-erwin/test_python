@@ -1,1 +1,0 @@
-cd ../service.activedirectory/cmd && cmd.exe

@@ -1,1 +1,0 @@
-cd ../service.restfulwebservice/cmd/ && cmd.exe

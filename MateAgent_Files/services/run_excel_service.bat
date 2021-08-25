@@ -1,1 +1,0 @@
-cd ../service.excel/cmd/ && cmd.exe

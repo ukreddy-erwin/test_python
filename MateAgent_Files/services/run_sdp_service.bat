@@ -1,1 +1,0 @@
-cd ../service.servicedeskplus/cmd/ && cmd.exe

@@ -1,0 +1,1 @@
+This is the interface between your application and outside data service, for example another gRPC service. All the data conversion and transformation happened here, so your business logic code doesn't need to be aware of the detail implementation (whether it gRPC or REST) of outside services.

@@ -1,0 +1,39 @@
+syntax = "proto3";
+package dbgeneratedclient;
+option go_package = "./;dbspb";
+
+service DatabaseService {
+  rpc DatabaseSession(stream DBSessionReq) returns (stream DBSessionResp) {};
+}
+
+message DBSessionReq {
+  string actionName = 1;
+  repeated Dictionary dbReq = 2;
+}
+
+message DBSessionResp {
+  string message = 1;
+  bool status = 2;
+  bytes rows = 3;
+  string set = 4;
+  string logMessage = 5;
+  ReqResponse responseData = 6;
+}
+
+message ReqResponse {
+  string response = 1;
+  string type = 2;
+}
+
+message Dictionary {
+  string key = 1;
+  string value = 2;
+  bytes byteValue = 3;
+  repeated string listValue = 4;
+  repeated ListDictionary cols = 5;
+}
+
+message ListDictionary {
+  string key = 1;
+  string value = 2;
+}

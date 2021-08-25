@@ -1,1 +1,0 @@
-cd ../service.recordingagent/cmd/ && cmd.exe

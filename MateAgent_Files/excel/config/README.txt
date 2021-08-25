@@ -1,0 +1,1 @@
+Configuration code and data for the application, including configuration files.

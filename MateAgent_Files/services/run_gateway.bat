@@ -1,1 +1,0 @@
-cd ../grpc.gateway/cmd/service && service.exe

@@ -1,0 +1,34 @@
+syntax = "proto3";
+package ogeneratedclient;
+option go_package = "./;opb";
+
+service OcrService {
+  rpc OSession(stream OSessionReq) returns (stream OSessionResp) {};
+}
+
+message OSessionReq {
+  string actionName = 1;
+  string operationId = 2;
+  repeated Dictionary ocrReq = 3;
+}
+
+message OSessionResp {
+  string message = 1;
+  bool status = 2;
+  string set = 3;
+  string logMessage = 4;
+  string data = 5;
+}
+
+message Dictionary {
+  string key = 1;
+  string value = 2;
+  bytes byteValue = 3;
+  repeated string listValue = 4;
+  repeated ListDictionary dictionaryValue = 5;
+}
+
+message ListDictionary {
+  string key = 1;
+  string value = 2;
+}
