@@ -5,7 +5,7 @@ Set oShell = CreateObject("WScript.Shell")
 
 Const iTidyDivLen = 127
 
-main = Session.Property("INSTALLDIR")
+main = Session.Property("CustomActionData")
 'main = oFso.GetParentFolderName(WScript.ScriptFullName) & "\"
 'service_name = "MAGateway"
 'service_path = main&"gateway\cmd\service\service.exe"
@@ -22,7 +22,7 @@ InstallService "MARA",main&"recordingagent\cmd\cmd.exe"
 
 Sub InstallService(service_name,service_path)
  rev = RunInstallation(main&"nssm.exe","install "&service_name&" """&service_path&"""","0,3010",False)
- Log "bat file status "&rev
+ Log "Service install status "&rev
  rev1 = RunInstallation(main&"nssm.exe","start """&service_name&"""","0,3010",False)
  Log "service start status "&rev1
 End Sub

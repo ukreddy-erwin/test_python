@@ -5,7 +5,7 @@ Set oShell = CreateObject("WScript.Shell")
 
 Const iTidyDivLen = 127
 
-main = Session.Property("INSTALLDIR")
+main = Session.Property("CustomActionData")
 'main = oFso.GetParentFolderName(WScript.ScriptFullName) & "\"
 'service_name = "MAGateway"
 'service_path = main&"gateway\cmd\service\service.exe"
