@@ -56,11 +56,11 @@ else
   $text = $text + "automCenterConfig: &automCenterConfig"+"  code: $au_code"+"  url: $au_url"+"  port: $au_port"
 }
 
-$text | Out-File "$propertyset[1]" #$($MyDir+"\\output.yml")
+$text | Out-File "$yaml_file"
 
 }
 
-updateFile $propertyset[0] $text1
-updateFile $propertyset[0] $text1
+updateFile $($propertyset[0]) $text1
+updateFile $($propertyset[1]) $text2
 
 
