@@ -1,14 +1,7 @@
 #$MyDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
 #$text = Get-Content -Path @($($MyDir+"\\input.yml"))
 
-$tmp = $($env:temp)+"\CustomDataMateAgent.log" #New-TemporaryFile
-function WriteLog($sMsg)
-{
-	$sMsg | Out-File $tmp -Append
-}
-
 $propertyset = Get-Property -Name CustomActionData
-WriteLog "Data received to update: $propertyset"
 $propertyset = $propertyset.Split(";")
 
 $text1 = Get-Content -Path @($propertyset[0])
@@ -26,14 +19,8 @@ $au_port = $propertyset[4]#"5678"
 
 #$txt = $text | Select-String -Pattern 'gatewayGrpcConfig: &gatewayGrpcConfig'
 
-function updateFile($yaml_file,$text)
-{
- 
-WriteLog "Updating $yaml_file" 
- 
- $match = $false
+$match = $false
 $count = 0
-
 foreach($line in $text) {
     
     if($line.trim().StartsWith('automCenterConfig:')){
@@ -42,8 +29,8 @@ foreach($line in $text) {
     }
     $count++
     }
-    
-    if($match){
+
+if($match){
 echo $count
 echo $text[$count]
 $text[$count+1]="  code: $au_code"
@@ -56,11 +43,36 @@ else
   $text = $text + "automCenterConfig: &automCenterConfig"+"  code: $au_code"+"  url: $au_url"+"  port: $au_port"
 }
 
+#echo $text
+
+#$text.GetType()
 $text | Out-File "$propertyset[1]" #$($MyDir+"\\output.yml")
 
+$match = $false
+$count = 0
+foreach($line in $text) {
+    
+    if($line.trim().StartsWith('automCenterConfig:')){
+        $match = $true
+        break
+    }
+    $count++
+    }
+
+if($match){
+echo $count
+echo $text[$count]
+$text[$count+1]="  code: $au_code"
+$text[$count+2]="  url: $au_url"
+$text[$count+3]="  port: $au_port"
+}
+else
+{
+  echo "----------No matches------"
+  $text = $text + "automCenterConfig: &automCenterConfig"+"  code: $au_code"+"  url: $au_url"+"  port: $au_port"
 }
 
-updateFile $propertyset[0] $text1
-updateFile $propertyset[0] $text1
+#echo $text
 
-
+#$text.GetType()
+$text | Out-File "$propertyset[1]" #$($MyDir+"\\output.yml")
