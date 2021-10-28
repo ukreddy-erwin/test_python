@@ -53,7 +53,8 @@ $text[$count+3]="  port: $au_port"
 else
 {
   echo "----------No matches------"
-  $text = $text + "automCenterConfig: &automCenterConfig"+"  code: $au_code"+"  url: $au_url"+"  port: $au_port"
+  #$text = $text + "automCenterConfig: &automCenterConfig"+"  code: $au_code"+"  url: $au_url"+"  port: $au_port"
+  $text =  "automCenterConfig: &automCenterConfig`r"+"  code: $au_code`r"+"  url: $au_url`r"+"  port: $au_port`r" + ($text -Join "`n")
 }
 
 $text | Out-File "$yaml_file"
