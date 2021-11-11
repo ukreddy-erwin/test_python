@@ -33,6 +33,14 @@ Sub RemoveService(service_name)
  Log "service delete status "&rev1
 End Sub
 
+Sub RemoveServiceSystem(service_name)
+ sc = oShell.ExpandEnvironmentStrings("%WinDir%") & "\System32\sc.exe"
+ rev = RunInstallation(sc,"stop """&service_name&"""","0,3010",False)
+ Log "sc service stop status "&rev
+ rev1 = RunInstallation(sc,"delete """&service_name&"""","0,3010",False)
+ Log "sc service delete status "&rev1
+End Sub
+
 Function RunInstallation(sSetup, sParams, sSuccessfulCodes, bExitOnFailure)
 	Log ""
 	Log String(iTidyDivLen, "-")
