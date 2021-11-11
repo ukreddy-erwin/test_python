@@ -1,0 +1,30 @@
+gatewayGrpcConfig: &gatewayGrpcConfig
+  code: gatewayGrpc
+  driverName: tcp
+  urlAddress: 0.0.0.0:5051
+matedriveGrpcConfig: &matedriveGrpcConfig
+  code: matedriveGrpc
+  driverName: tcp
+  urlAddress: localhost:5062
+zapConfig: &zapConfig
+  code: zap
+  level: debug
+  enableCaller: true
+logrusConfig: &logrusConfig
+  code: logrus
+  level: debug
+  enableCaller: false
+logConfig: *zapConfig
+useCaseConfig:
+  fileList:
+    code: fileList
+  createDirectory:
+    code: createDirectory
+  deleteFileFolder:
+    code: deleteFileFolder
+  renameFileFolder:
+    code: renameFileFolder
+  uploadFile:
+    code: uploadFile
+  downloadFile:
+    code: downloadFile

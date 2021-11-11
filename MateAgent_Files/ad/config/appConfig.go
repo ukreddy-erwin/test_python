@@ -23,11 +23,18 @@ type AppConfig struct {
 
 // UseCaseConfig represents different use cases
 type UseCaseConfig struct {
-	Connect     ConnectConfig     `yaml:"connect"`
-	CreateUser  CreateUserConfig  `yaml:"createUser"`
-	DisableUser DisableUserConfig `yaml:"disableUser"`
-	UpdateUser  UpdateUserConfig  `yaml:"updateUser"`
-	SearchUser  SearchUserConfig  `yaml:"searchUser"`
+	Connect             ConnectConfig             `yaml:"connect"`
+	CreateUser          CreateUserConfig          `yaml:"createUser"`
+	DisableUser         DisableUserConfig         `yaml:"disableUser"`
+	UpdateUser          UpdateUserConfig          `yaml:"updateUser"`
+	AddUserToGroup      AddUserToGroupConfig      `yaml:"addUserToGroup"`
+	CreateGroup         CreateGroupConfig         `yaml:"createGroup"`
+	DeleteUser          DeleteUserConfig          `yaml:"deleteUser"`
+	EnableUser          EnableUserConfig          `yaml:"enableUser"`
+	MoveUser            MoveUserConfig            `yaml:"moveUser"`
+	RemoveUserFromGroup RemoveUserFromGroupConfig `yaml:"removeUserFromGroup"`
+	UnlockUser          UnlockUserConfig          `yaml:"unlockUser"`
+	SearchUser          SearchUserConfig          `yaml:"searchUser"`
 }
 
 // ConnectConfig represents excel use case
@@ -47,6 +54,41 @@ type DisableUserConfig struct {
 
 // UpdateUserConfig represents excel use case
 type UpdateUserConfig struct {
+	Code string `yaml:"code"`
+}
+
+// AddUserToGroupConfig represents excel use case
+type AddUserToGroupConfig struct {
+	Code string `yaml:"code"`
+}
+
+// CreateGroupConfig represents excel use case
+type CreateGroupConfig struct {
+	Code string `yaml:"code"`
+}
+
+// DeleteUserConfig represents excel use case
+type DeleteUserConfig struct {
+	Code string `yaml:"code"`
+}
+
+// EnableUserConfig represents excel use case
+type EnableUserConfig struct {
+	Code string `yaml:"code"`
+}
+
+// MoveUserConfig represents excel use case
+type MoveUserConfig struct {
+	Code string `yaml:"code"`
+}
+
+// UnlockUserConfig represents excel use case
+type UnlockUserConfig struct {
+	Code string `yaml:"code"`
+}
+
+// RemoveUserFromGroupConfig represents excel use case
+type RemoveUserFromGroupConfig struct {
 	Code string `yaml:"code"`
 }
 

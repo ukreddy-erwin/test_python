@@ -1,0 +1,24 @@
+syntax = "proto3";
+package automcenter;
+option go_package = "./;aucpb";
+
+service AutomCenter {
+  rpc Register( RegisterRequest ) returns ( RegisterResponse ) {};
+}
+
+message RegisterRequest {
+  string deviceName = 1;
+  string deviceUser = 2;
+  string url = 3;
+  string port = 4;
+  string os = 5;
+  string ram = 6;
+  string cpu = 7;
+  string version = 8;
+  bool localDevice = 9;  
+}
+
+message RegisterResponse {
+  string message = 1;
+  bool status = 2;
+}

@@ -23,11 +23,11 @@ type AppConfig struct {
 
 // UseCaseConfig represents different use cases
 type UseCaseConfig struct {
-	BrowserDom BrowserDomConfig `yaml:"browserdom"`
+	ChromeRecord ChromeRecordConfig `yaml:"chromeRecord"`
 }
 
 // GetMethodConfig represents excel use case
-type BrowserDomConfig struct {
+type ChromeRecordConfig struct {
 	Code string `yaml:"code"`
 }
 

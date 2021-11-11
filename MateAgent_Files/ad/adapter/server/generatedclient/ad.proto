@@ -29,6 +29,7 @@ message LdapConnectReq {
 message AdSessionReq {
   string actionName = 1;
   repeated Dictionary adReq = 2;
+  string version = 3;
 }
 
 message AdSessionResp {

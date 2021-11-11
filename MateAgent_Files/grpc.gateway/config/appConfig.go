@@ -16,6 +16,7 @@ type AppConfig struct {
 	LogJsonDataConfig                   LogJsonStoreConfig                  `yaml:"logJsonDataConfig"`
 	QueueJsonDataConfig                 QueueJsonStoreConfig                `yaml:"queueJsonDataConfig"`
 	GatewayGrpcConfig                   DataStoreConfig                     `yaml:"gatewayGrpcConfig"`
+	AutomCenterConfig                   AutomCenterConfig                   `yaml:"automCenterConfig"`
 	ExcelGrpcConfig                     DataStoreConfig                     `yaml:"excelGrpcConfig"`
 	ADGrpcConfig                        DataStoreConfig                     `yaml:"adGrpcConfig"`
 	RestfulWebServiceGrpcConfig         DataStoreConfig                     `yaml:"restfulWebServiceGrpcConfig"`
@@ -26,6 +27,8 @@ type AppConfig struct {
 	PdfGrpcConfig                       DataStoreConfig                     `yaml:"pdfGrpcConfig"`
 	OcrGrpcConfig                       DataStoreConfig                     `yaml:"ocrGrpcConfig"`
 	EwsGrpcConfig                       DataStoreConfig                     `yaml:"ewsGrpcConfig"`
+	MatedriveGrpcConfig                 DataStoreConfig                     `yaml:"matedriveGrpcConfig"`
+	DesktopAgentGrpcConfig              DataStoreConfig                     `yaml:"desktopAgentGrpcConfig"`
 	ZapConfig                           LogConfig                           `yaml:"zapConfig"`
 	LogrusConfig                        LogConfig                           `yaml:"logrusConfig"`
 	Log                                 LogConfig                           `yaml:"logConfig"`
@@ -40,6 +43,8 @@ type AppConfig struct {
 	PdfMicroserviceConfig               PdfMicroserviceConfig               `yaml:"pdfMicroserviceConfig"`
 	OcrMicroserviceConfig               OcrMicroserviceConfig               `yaml:"ocrMicroserviceConfig"`
 	EwsMicroserviceConfig               EwsMicroserviceConfig               `yaml:"ewsMicroserviceConfig"`
+	MatedriveMicroserviceConfig         MatedriveMicroserviceConfig         `yaml:"matedriveMicroserviceConfig"`
+	DesktopAgentMicroserviceConfig      DesktopAgentMicroserviceConfig      `yaml:"desktopAgentMicroserviceConfig"`
 }
 
 // ExcelMicroserviceConfig represents excel use case
@@ -93,6 +98,16 @@ type EwsMicroserviceConfig struct {
 	LogDataConfig DataConfig `yaml:"logDataConfig"`
 }
 
+type MatedriveMicroserviceConfig struct {
+	Code          string     `yaml:"code"`
+	LogDataConfig DataConfig `yaml:"logDataConfig"`
+}
+
+type DesktopAgentMicroserviceConfig struct {
+	Code          string     `yaml:"code"`
+	LogDataConfig DataConfig `yaml:"logDataConfig"`
+}
+
 // UseCaseConfig represents different use cases
 type UseCaseConfig struct {
 	LogJson           LogJsonConfig           `yaml:"logJson"`
@@ -109,6 +124,8 @@ type UseCaseConfig struct {
 	Pdf               PdfConfig               `yaml:"pdf"`
 	Ocr               OcrConfig               `yaml:"ocr"`
 	Ews               EwsConfig               `yaml:"ews"`
+	Matedrive         MatedriveConfig         `yaml:"matedrive"`
+	DesktopAgent      DesktopAgentConfig      `yaml:"desktopAgent"`
 }
 
 // LogJsonConfig represents excel use case
@@ -180,6 +197,16 @@ type EwsConfig struct {
 	MicroserviceConfig EwsMicroserviceConfig `yaml:"microserviceConfig"`
 	LogDataConfig      DataConfig            `yaml:"logDataConfig"`
 }
+type MatedriveConfig struct {
+	Code               string                      `yaml:"code"`
+	MicroserviceConfig MatedriveMicroserviceConfig `yaml:"microserviceConfig"`
+	LogDataConfig      DataConfig                  `yaml:"logDataConfig"`
+}
+type DesktopAgentConfig struct {
+	Code               string                         `yaml:"code"`
+	MicroserviceConfig DesktopAgentMicroserviceConfig `yaml:"microserviceConfig"`
+	LogDataConfig      DataConfig                     `yaml:"logDataConfig"`
+}
 
 // LoopConfig represents excel use case
 type LoopConfig struct {
@@ -222,6 +249,13 @@ type DataStoreConfig struct {
 	UrlAddress string `yaml:"urlAddress"`
 	// Only some databases need this database name
 	DbName string `yaml:"dbName"`
+}
+
+// AutomCenterConfig represents AutomCenter grpc configurations
+type AutomCenterConfig struct {
+	Code string `yaml:"code"`
+	Url  string `yaml:"url"`
+	Port string `yaml:"port"`
 }
 
 // LogConfig represents logger handler

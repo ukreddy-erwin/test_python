@@ -25,6 +25,7 @@ message ReadData {
 message FAFSessionReq {
   string actionName = 1;
   repeated Dictionary fafReq = 2;
+  string version = 3;
 }
 
 message FAFSessionResp {

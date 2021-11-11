@@ -24,6 +24,8 @@ const (
 	COPY_FOLDER   string = "copyFolder"
 	CREATE_FOLDER string = "createFolder"
 	DELETE_FOLDER string = "deleteFolder"
+	MOVE_FOLDER   string = "moveFolder"
+	MOVE_FILE     string = "moveFile"
 )
 
 func validateConfig(appConfig AppConfig) error {
@@ -99,6 +101,14 @@ func validateUseCase(useCase UseCaseConfig) error {
 	if err != nil {
 		return errors.Wrap(err, "")
 	}
+	err = validateMoveFolder(useCase)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	err = validateMoveFile(useCase)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
 	return nil
 }
 
@@ -168,6 +178,30 @@ func validateDeleteFolder(useCaseConfig UseCaseConfig) error {
 	rcMsg := " in validateRegistration doesn't match key = "
 	if DELETE_FOLDER != key {
 		errMsg := DELETE_FOLDER + rcMsg + key
+		return errors.New(errMsg)
+	}
+
+	return nil
+}
+
+func validateMoveFolder(useCaseConfig UseCaseConfig) error {
+	cf := useCaseConfig.MoveFolder
+	key := cf.Code
+	rcMsg := " in validateRegistration doesn't match key = "
+	if MOVE_FOLDER != key {
+		errMsg := MOVE_FOLDER + rcMsg + key
+		return errors.New(errMsg)
+	}
+
+	return nil
+}
+
+func validateMoveFile(useCaseConfig UseCaseConfig) error {
+	cf := useCaseConfig.MoveFile
+	key := cf.Code
+	rcMsg := " in validateRegistration doesn't match key = "
+	if MOVE_FILE != key {
+		errMsg := MOVE_FILE + rcMsg + key
 		return errors.New(errMsg)
 	}
 

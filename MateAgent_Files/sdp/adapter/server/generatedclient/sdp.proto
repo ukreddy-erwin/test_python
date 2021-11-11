@@ -9,6 +9,7 @@ service SDPService {
 message SDPSessionReq {
   string actionName = 1;
   repeated Dictionary sdpReq = 2;
+  string version = 3;
 }
 
 message SDPSessionResp {

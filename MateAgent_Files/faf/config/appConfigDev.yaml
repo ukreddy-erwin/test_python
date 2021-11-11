@@ -28,3 +28,7 @@ useCaseConfig:
     code: createFolder
   deleteFolder:
     code: deleteFolder
+  moveFolder:
+    code: moveFolder
+  moveFile:
+    code: moveFile

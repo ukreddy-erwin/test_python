@@ -10,7 +10,7 @@ main = Session.Property("CustomActionData")
 'service_name = "MAGateway"
 'service_path = main&"gateway\cmd\service\service.exe"
 
-InstallService "MAGateway",main&"gateway\cmd\service\service.exe"
+InstallService "MAGateway",main&"grpc.gateway\cmd\service\service.exe"
 InstallService "MAAD",main&"ad\cmd\cmd.exe"
 InstallService "MADB",main&"database\cmd\cmd.exe"
 InstallService "MAEXCEL",main&"excel\cmd\cmd.exe"
@@ -19,6 +19,10 @@ InstallService "MAFAF",main&"faf\cmd\cmd.exe"
 InstallService "MARWS",main&"rws\cmd\cmd.exe"
 InstallService "MASDP",main&"sdp\cmd\cmd.exe"
 InstallService "MARA",main&"recordingagent\cmd\cmd.exe"
+'New services
+InstallService "MAEWS",main&"ews\cmd\cmd.exe"
+InstallService "MAMD",main&"md\cmd\cmd.exe"
+InstallService "MADA",main&"desktopagent\cmd\cmd.exe"
 
 Sub InstallService(service_name,service_path)
  rev = RunInstallation(main&"nssm.exe","install "&service_name&" """&service_path&"""","0,3010",False)

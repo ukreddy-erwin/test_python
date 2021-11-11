@@ -16,5 +16,5 @@ logrusConfig: &logrusConfig
   enableCaller: false
 logConfig: *zapConfig
 useCaseConfig:
-  browserdom:
-    code: browserdom
+  chromeRecord:
+    code: chromeRecord

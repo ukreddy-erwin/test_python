@@ -3,71 +3,89 @@ package generatedclient;
 option go_package = "./;flowpb";
 
 service FlowService {
-    rpc RunFlow(stream RunFlowRequest) returns (stream RunFlowResponse) {};
-    rpc RunAction(stream RunActionRequest) returns (stream RunActionResponse) {};
-    rpc RunProcess(stream RunProcessRequest) returns (stream RunProcessResponse) {};
-    rpc StopCronJob(StopCronJobRequest) returns (StopCronJobResponse) {};
+  rpc DebugFlow(stream RunFlowRequest) returns (stream RunFlowResponse) {};
+  rpc RunFlow(stream RunFlowRequest) returns (stream RunFlowResponse) {};
+  rpc RunAction(stream RunActionRequest) returns (stream RunActionResponse) {};
+  rpc RunProcess(stream RunProcessRequest) returns (stream RunFlowResponse) {};
+  rpc StopCronJob(StopCronJobRequest) returns (StopCronJobResponse) {};
+  rpc RunDirect(stream RunDirectRequest) returns (stream RunDirectResponse) {};
 }
-
+message RunDirectRequest {
+  string userId = 1;
+  Action action = 2;
+}
+message RunDirectResponse {
+  string message = 1;
+  bool status = 2;
+  bytes logMessage = 3;
+  string data = 4;
+  repeated bytes files = 5;
+  int32 StatusCode = 6;
+}
 message StopCronJobRequest {
-    string operationId = 1;
+  string operationId = 1;
 }
 
 message StopCronJobResponse {
-    string message = 1;
-    bool status = 2;
+  string message = 1;
+  bool status = 2;
 }
 
 message Flow {
-    Autom autom = 1;
-    repeated Action actions = 2;
-    string elementName = 3; 
-    repeated Input inputs =4;
-    repeated Output outputs = 5;
-    repeated Variable variables = 6;
+  Autom autom = 1;
+  repeated Action actions = 2;
+  string elementName = 3;
+  repeated Input inputs = 4;
+  repeated Output outputs = 5;
+  repeated Variable variables = 6;
 }
 
 message Variable{
-    string name = 1;
-    Type variable_type = 2;
-    string value = 3;
-    bool isInput = 4;
-    bool isOutput = 5;
-    bool isCustomizable = 6;
+  string name = 1;
+  Type variable_type = 2;
+  string value = 3;
+  bool isInput = 4;
+  bool isOutput = 5;
+  bool isCustomizable = 6;
 }
 
 message Type{
-    string name = 1;
+  string name = 1;
 }
 
 message Output {
-    string name = 1;
-    string type = 2;
+  string name = 1;
+  string set = 2;
 }
 
 message Input {
-    string key = 1;
-    string value = 2;
-    string type = 3;
+  string key = 1;
+  string value = 2;
 }
 
 message Process {
-    string id  = 1;
-    string name = 2;
-    string v = 3;
+  string id = 1;
+  string name = 2;
+  string v = 3;
 }
 
-message RunProcessRequest {    
-    Operation operation = 1;    
-    Process process = 2;
-    repeated Flow flows = 3;
+message RunProcessRequest {
+  Autom autom = 1;
+  repeated Action actions = 2;
+  Operation operation = 3;
+  bool isOrchestrated = 4;
+  repeated Variable variables = 5;
+  string messageType = 6;
+  repeated Output outputs = 7;
+  repeated Input inputs = 8;
 }
 
 message RunProcessResponse {
-    string message = 1;
-    bool status = 2;
-    bytes logMessage = 3;
-    DataMessage DataMessage = 4;
+  string message = 1;
+  bool status = 2;
+  bytes logMessage = 3;
+  DataMessage DataMessage = 4;
+  int64 StatusCode = 5;
 }
 
 message DataMessage{
@@ -75,69 +93,83 @@ message DataMessage{
 	string ActionName  =2;
 	string Value       =3;
 	string ValueType   =4;
+    string DebugSeverity   =5;
+    int64 DebugTimeStamp =6;
 }
 
 message RunActionRequest {
-    Autom autom = 1;
-    Action action = 2;
-    repeated Variable variables = 5; 
+  Autom autom = 1;
+  Action action = 2;
+  repeated Variable variables = 5;
 }
 
 message RunActionResponse {
-    string message = 1;
-    bool status = 2;
-    repeated bytes files = 3;
+  string message = 1;
+  bool status = 2;
+  repeated bytes files = 3;
+  bytes logMessage = 4;
 }
 
 message Action {
-    string id = 1;
-    string name = 2;
-    string definition = 3;
-    Library library = 4;
-    repeated Dictionary params = 5;
-    repeated Action children = 6;
+  string id = 1;
+  string name = 2;
+  string definition = 3;  
+  Library library = 4;
+  repeated Dictionary params = 5;
+  repeated Action children = 6;
+  string conditionGroupId = 7;
+  int32 order = 8;
 }
 
 message Library {
-    string name = 1;
-    string v = 2;
+  string name = 1;
+  string v = 2;
 }
 
 message Autom {
     string id = 1;
     string name = 2;
     string v = 3;
+    bool isDebugging = 4;
 }
 
 message Operation {
-    string id = 1;
+  string id = 1;
 }
 
 message RunFlowRequest {
-    Autom autom = 1;
-    repeated Action actions = 2;
-    Operation operation = 3;
-    bool isOrchestrated = 4;
-    repeated Variable variables = 5;
+  Autom autom = 1;
+  repeated Action actions = 2;
+  Operation operation = 3;
+  bool isOrchestrated = 4;
+  repeated Variable variables = 5;
 }
 
 message RunFlowResponse {
     string message = 1;
-    bool status = 2;
+    bool status = 2;    
     bytes logMessage = 3;
     DataMessage DataMessage = 4;
+    int64 StatusCode = 5;
+    int32 errorOrder = 6;
+    Data data = 7;
+}
+
+message Data {
+  string type = 1;
+  string value = 2;
 }
 
 message Dictionary {
-    string key = 1;
-    oneof chooseValue {
-        string value = 2;
-        bytes byteValue = 3;
-    }
-    repeated ListDictionary dictionaryValue = 4;
+  string key = 1;
+  oneof chooseValue {
+    string value = 2;
+    bytes byteValue = 3;
+  }
+  repeated ListDictionary dictionaryValue = 4;
 }
 
 message ListDictionary {
-    string key = 1;
-    string value = 2;
+  string key = 1;
+  string value = 2;
 }

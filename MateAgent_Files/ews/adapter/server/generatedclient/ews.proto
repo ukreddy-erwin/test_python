@@ -1,0 +1,39 @@
+syntax = "proto3";
+package ewsgeneratedclient;
+option go_package = "./;ewspb";
+
+service EwsService {
+  rpc EwsSession(stream EwsSessionReq) returns (stream EwsSessionResp) {};
+}
+
+message EwsSessionReq {
+  string actionName = 1;
+  repeated Dictionary ewsReq = 2;
+  string version = 3;
+}
+
+message EwsSessionResp {
+  string message = 1;
+  bool status = 2;
+  string set = 3;
+  string logMessage = 4;
+  repeated Dictionary data = 5;
+}
+
+message ReqResponse {
+  string response = 1;
+  string type = 2;
+}
+
+message Dictionary {
+  string key = 1;
+  string value = 2;
+  bytes byteValue = 3;
+  repeated string listValue = 4;
+  repeated ListDictionary dictionaryValue = 5;
+}
+
+message ListDictionary {
+  string key = 1;
+  string value = 2;
+}

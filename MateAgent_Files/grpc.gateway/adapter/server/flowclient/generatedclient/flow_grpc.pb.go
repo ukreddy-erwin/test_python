@@ -18,10 +18,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FlowServiceClient interface {
+	DebugFlow(ctx context.Context, opts ...grpc.CallOption) (FlowService_DebugFlowClient, error)
 	RunFlow(ctx context.Context, opts ...grpc.CallOption) (FlowService_RunFlowClient, error)
 	RunAction(ctx context.Context, opts ...grpc.CallOption) (FlowService_RunActionClient, error)
 	RunProcess(ctx context.Context, opts ...grpc.CallOption) (FlowService_RunProcessClient, error)
 	StopCronJob(ctx context.Context, in *StopCronJobRequest, opts ...grpc.CallOption) (*StopCronJobResponse, error)
+	RunDirect(ctx context.Context, opts ...grpc.CallOption) (FlowService_RunDirectClient, error)
 }
 
 type flowServiceClient struct {
@@ -32,8 +34,39 @@ func NewFlowServiceClient(cc grpc.ClientConnInterface) FlowServiceClient {
 	return &flowServiceClient{cc}
 }
 
+func (c *flowServiceClient) DebugFlow(ctx context.Context, opts ...grpc.CallOption) (FlowService_DebugFlowClient, error) {
+	stream, err := c.cc.NewStream(ctx, &FlowService_ServiceDesc.Streams[0], "/generatedclient.FlowService/DebugFlow", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &flowServiceDebugFlowClient{stream}
+	return x, nil
+}
+
+type FlowService_DebugFlowClient interface {
+	Send(*RunFlowRequest) error
+	Recv() (*RunFlowResponse, error)
+	grpc.ClientStream
+}
+
+type flowServiceDebugFlowClient struct {
+	grpc.ClientStream
+}
+
+func (x *flowServiceDebugFlowClient) Send(m *RunFlowRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *flowServiceDebugFlowClient) Recv() (*RunFlowResponse, error) {
+	m := new(RunFlowResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *flowServiceClient) RunFlow(ctx context.Context, opts ...grpc.CallOption) (FlowService_RunFlowClient, error) {
-	stream, err := c.cc.NewStream(ctx, &FlowService_ServiceDesc.Streams[0], "/generatedclient.FlowService/RunFlow", opts...)
+	stream, err := c.cc.NewStream(ctx, &FlowService_ServiceDesc.Streams[1], "/generatedclient.FlowService/RunFlow", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +97,7 @@ func (x *flowServiceRunFlowClient) Recv() (*RunFlowResponse, error) {
 }
 
 func (c *flowServiceClient) RunAction(ctx context.Context, opts ...grpc.CallOption) (FlowService_RunActionClient, error) {
-	stream, err := c.cc.NewStream(ctx, &FlowService_ServiceDesc.Streams[1], "/generatedclient.FlowService/RunAction", opts...)
+	stream, err := c.cc.NewStream(ctx, &FlowService_ServiceDesc.Streams[2], "/generatedclient.FlowService/RunAction", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +128,7 @@ func (x *flowServiceRunActionClient) Recv() (*RunActionResponse, error) {
 }
 
 func (c *flowServiceClient) RunProcess(ctx context.Context, opts ...grpc.CallOption) (FlowService_RunProcessClient, error) {
-	stream, err := c.cc.NewStream(ctx, &FlowService_ServiceDesc.Streams[2], "/generatedclient.FlowService/RunProcess", opts...)
+	stream, err := c.cc.NewStream(ctx, &FlowService_ServiceDesc.Streams[3], "/generatedclient.FlowService/RunProcess", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +138,7 @@ func (c *flowServiceClient) RunProcess(ctx context.Context, opts ...grpc.CallOpt
 
 type FlowService_RunProcessClient interface {
 	Send(*RunProcessRequest) error
-	Recv() (*RunProcessResponse, error)
+	Recv() (*RunFlowResponse, error)
 	grpc.ClientStream
 }
 
@@ -117,8 +150,8 @@ func (x *flowServiceRunProcessClient) Send(m *RunProcessRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *flowServiceRunProcessClient) Recv() (*RunProcessResponse, error) {
-	m := new(RunProcessResponse)
+func (x *flowServiceRunProcessClient) Recv() (*RunFlowResponse, error) {
+	m := new(RunFlowResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -134,14 +167,47 @@ func (c *flowServiceClient) StopCronJob(ctx context.Context, in *StopCronJobRequ
 	return out, nil
 }
 
+func (c *flowServiceClient) RunDirect(ctx context.Context, opts ...grpc.CallOption) (FlowService_RunDirectClient, error) {
+	stream, err := c.cc.NewStream(ctx, &FlowService_ServiceDesc.Streams[4], "/generatedclient.FlowService/RunDirect", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &flowServiceRunDirectClient{stream}
+	return x, nil
+}
+
+type FlowService_RunDirectClient interface {
+	Send(*RunDirectRequest) error
+	Recv() (*RunDirectResponse, error)
+	grpc.ClientStream
+}
+
+type flowServiceRunDirectClient struct {
+	grpc.ClientStream
+}
+
+func (x *flowServiceRunDirectClient) Send(m *RunDirectRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *flowServiceRunDirectClient) Recv() (*RunDirectResponse, error) {
+	m := new(RunDirectResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // FlowServiceServer is the server API for FlowService service.
 // All implementations must embed UnimplementedFlowServiceServer
 // for forward compatibility
 type FlowServiceServer interface {
+	DebugFlow(FlowService_DebugFlowServer) error
 	RunFlow(FlowService_RunFlowServer) error
 	RunAction(FlowService_RunActionServer) error
 	RunProcess(FlowService_RunProcessServer) error
 	StopCronJob(context.Context, *StopCronJobRequest) (*StopCronJobResponse, error)
+	RunDirect(FlowService_RunDirectServer) error
 	mustEmbedUnimplementedFlowServiceServer()
 }
 
@@ -149,6 +215,9 @@ type FlowServiceServer interface {
 type UnimplementedFlowServiceServer struct {
 }
 
+func (UnimplementedFlowServiceServer) DebugFlow(FlowService_DebugFlowServer) error {
+	return status.Errorf(codes.Unimplemented, "method DebugFlow not implemented")
+}
 func (UnimplementedFlowServiceServer) RunFlow(FlowService_RunFlowServer) error {
 	return status.Errorf(codes.Unimplemented, "method RunFlow not implemented")
 }
@@ -161,6 +230,9 @@ func (UnimplementedFlowServiceServer) RunProcess(FlowService_RunProcessServer) e
 func (UnimplementedFlowServiceServer) StopCronJob(context.Context, *StopCronJobRequest) (*StopCronJobResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StopCronJob not implemented")
 }
+func (UnimplementedFlowServiceServer) RunDirect(FlowService_RunDirectServer) error {
+	return status.Errorf(codes.Unimplemented, "method RunDirect not implemented")
+}
 func (UnimplementedFlowServiceServer) mustEmbedUnimplementedFlowServiceServer() {}
 
 // UnsafeFlowServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -172,6 +244,32 @@ type UnsafeFlowServiceServer interface {
 
 func RegisterFlowServiceServer(s grpc.ServiceRegistrar, srv FlowServiceServer) {
 	s.RegisterService(&FlowService_ServiceDesc, srv)
+}
+
+func _FlowService_DebugFlow_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(FlowServiceServer).DebugFlow(&flowServiceDebugFlowServer{stream})
+}
+
+type FlowService_DebugFlowServer interface {
+	Send(*RunFlowResponse) error
+	Recv() (*RunFlowRequest, error)
+	grpc.ServerStream
+}
+
+type flowServiceDebugFlowServer struct {
+	grpc.ServerStream
+}
+
+func (x *flowServiceDebugFlowServer) Send(m *RunFlowResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *flowServiceDebugFlowServer) Recv() (*RunFlowRequest, error) {
+	m := new(RunFlowRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 func _FlowService_RunFlow_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -231,7 +329,7 @@ func _FlowService_RunProcess_Handler(srv interface{}, stream grpc.ServerStream) 
 }
 
 type FlowService_RunProcessServer interface {
-	Send(*RunProcessResponse) error
+	Send(*RunFlowResponse) error
 	Recv() (*RunProcessRequest, error)
 	grpc.ServerStream
 }
@@ -240,7 +338,7 @@ type flowServiceRunProcessServer struct {
 	grpc.ServerStream
 }
 
-func (x *flowServiceRunProcessServer) Send(m *RunProcessResponse) error {
+func (x *flowServiceRunProcessServer) Send(m *RunFlowResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -270,6 +368,32 @@ func _FlowService_StopCronJob_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FlowService_RunDirect_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(FlowServiceServer).RunDirect(&flowServiceRunDirectServer{stream})
+}
+
+type FlowService_RunDirectServer interface {
+	Send(*RunDirectResponse) error
+	Recv() (*RunDirectRequest, error)
+	grpc.ServerStream
+}
+
+type flowServiceRunDirectServer struct {
+	grpc.ServerStream
+}
+
+func (x *flowServiceRunDirectServer) Send(m *RunDirectResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *flowServiceRunDirectServer) Recv() (*RunDirectRequest, error) {
+	m := new(RunDirectRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // FlowService_ServiceDesc is the grpc.ServiceDesc for FlowService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -283,6 +407,12 @@ var FlowService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "DebugFlow",
+			Handler:       _FlowService_DebugFlow_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
 		{
 			StreamName:    "RunFlow",
 			Handler:       _FlowService_RunFlow_Handler,
@@ -298,6 +428,12 @@ var FlowService_ServiceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "RunProcess",
 			Handler:       _FlowService_RunProcess_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "RunDirect",
+			Handler:       _FlowService_RunDirect_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},

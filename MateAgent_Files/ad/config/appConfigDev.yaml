@@ -26,3 +26,17 @@ useCaseConfig:
     code: updateUser
   searchUser:
     code: searchUser
+  addUserToGroup:
+    code: addUserToGroup
+  createGroup:
+    code: createGroup
+  deleteUser:
+    code: deleteUser
+  enableUser:
+    code: enableUser
+  moveUser:
+    code: moveUser
+  removeUserFromGroup:
+    code: removeUserFromGroup
+  unlockUser:
+    code: unlockUser

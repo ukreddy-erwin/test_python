@@ -5,7 +5,7 @@ gatewayGrpcConfig:  &gatewayGrpcConfig
 rAgentGrpcConfig: &rAgentGrpcConfig
   code: rAgentGrpc
   driverName: tcp
-  urlAddress: localhost:5057
+  urlAddress: 127.0.0.1:5057
 zapConfig: &zapConfig
   code: zap
   level: debug
@@ -16,5 +16,5 @@ logrusConfig: &logrusConfig
   enableCaller: false
 logConfig: *zapConfig
 useCaseConfig:
-  browserdom:
-    code: browserdom
+  chromeRecord:
+    code: chromeRecord

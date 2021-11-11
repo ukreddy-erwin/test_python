@@ -20,6 +20,12 @@ RemoveService "MARWS"
 RemoveService "MASDP"
 RemoveService "MARA"
 
+'New services
+RemoveService "MAEWS"
+RemoveService "MAMD"
+RemoveService "MADA"
+
+
 Sub RemoveService(service_name)
  rev = RunInstallation(main&"nssm.exe","stop """&service_name&"""","0,3010",False)
  Log "service stop status "&rev

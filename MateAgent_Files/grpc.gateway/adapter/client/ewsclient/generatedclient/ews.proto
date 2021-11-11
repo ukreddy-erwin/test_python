@@ -8,8 +8,8 @@ service EwsService {
 
 message EwsSessionReq {
   string actionName = 1;
-  string operationId = 2;
-  repeated Dictionary ewsReq = 3;
+  repeated Dictionary ewsReq = 2;
+  string version = 3;
 }
 
 message EwsSessionResp {

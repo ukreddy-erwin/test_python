@@ -26,3 +26,15 @@ useCaseConfig:
     logDataConfig: &logDataConfig
       code: logData
       dataStoreConfig: *cassandradbConfig
+  copy:
+    code: copy
+  paste:
+    code: paste
+  createPivot:
+    code: createPivot
+  excelToCsv:
+    code: excelToCsv
+  vlookup:
+    code: vlookup
+  readSheet:
+    code: readSheet

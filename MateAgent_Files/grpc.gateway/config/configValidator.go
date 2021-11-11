@@ -8,6 +8,7 @@ import (
 const (
 	LOG_JSON_DATA                  string = "logJsonData"
 	QUEUE_JSON_DATA                string = "queueJsonData"
+	AUTOM_CENTER                   string = "automCenter"
 	EXCEL_GRPC                     string = "excelGrpc"
 	AD_GRPC                        string = "adGrpc"
 	DATABASE_GRPC                  string = "databaseGrpc"
@@ -16,6 +17,8 @@ const (
 	PDF_GRPC                       string = "pdfGrpc"
 	OCR_GRPC                       string = "ocrGrpc"
 	EWS_GRPC                       string = "ewsGrpc"
+	MATEDRIVE_GRPC                 string = "matedriveGrpc"
+	DESKTOPAGENT_GRPC              string = "desktopAgentGrpc"
 	EXCEL_MICROSERVICE             string = "excelMicroservice"
 	ACTIVEDIRECTORY_MICROSERVICE   string = "activeDirectoryMicroservice"
 	RESTFULWEBSERVICE_MICROSERVICE string = "restfulWebServiceMicroservice"
@@ -26,6 +29,8 @@ const (
 	PDF_MICROSERVICE               string = "pdfMicroservice"
 	OCR_MICROSERVICE               string = "ocrMicroservice"
 	EWS_MICROSERVICE               string = "ewsMicroservice"
+	MATEDRIVE_MICROSERVICE         string = "matedriveMicroservice"
+	DESKTOPAGENT_MICROSERVICE      string = "desktopAgentMicroservice"
 )
 
 // constant for logger code, it needs to match log code (logConfig)in configuration
@@ -51,6 +56,8 @@ const (
 	PDF               string = "pdf"
 	OCR               string = "ocr"
 	EWS               string = "ews"
+	MATEDRIVE         string = "matedrive"
+	DESKTOPAGENT      string = "desktopAgent"
 )
 
 // data service code. Need to map to the data service code (DataConfig) in the configuration yaml file.
@@ -112,13 +119,21 @@ func validateConfig(appConfig AppConfig) error {
 	if err != nil {
 		return errors.Wrap(err, "")
 	}
+	err = validateMatedriveMicroservice(appConfig)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	err = validateDesktopAgentMicroservice(appConfig)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
 	return nil
 }
 
 func validateExcelMicroservice(appConfig AppConfig) error {
 	em := appConfig.ExcelMicroserviceConfig
 	key := em.Code
-	emMsg := " in validateLogger doesn't match key = "
+	emMsg := " in validateExcelMicroservice doesn't match key = "
 	if EXCEL_MICROSERVICE != key {
 		errMsg := EXCEL_MICROSERVICE + emMsg + key
 		return errors.New(errMsg)
@@ -135,7 +150,7 @@ func validateExcelMicroservice(appConfig AppConfig) error {
 func validateActiveDirectoryMicroservice(appConfig AppConfig) error {
 	am := appConfig.ActiveDirectoryMicroserviceConfig
 	key := am.Code
-	amMsg := " in validateLogger doesn't match key = "
+	amMsg := " in validateActiveDirectoryMicroservice doesn't match key = "
 	if ACTIVEDIRECTORY_MICROSERVICE != key {
 		errMsg := ACTIVEDIRECTORY_MICROSERVICE + amMsg + key
 		return errors.New(errMsg)
@@ -152,7 +167,7 @@ func validateActiveDirectoryMicroservice(appConfig AppConfig) error {
 func validateRestfulWebServiceMicroservice(appConfig AppConfig) error {
 	am := appConfig.RestfulWebServiceMicroserviceConfig
 	key := am.Code
-	amMsg := " in validateLogger doesn't match key = "
+	amMsg := " in validateRestfulWebServiceMicroservice doesn't match key = "
 	if RESTFULWEBSERVICE_MICROSERVICE != key {
 		errMsg := RESTFULWEBSERVICE_MICROSERVICE + amMsg + key
 		return errors.New(errMsg)
@@ -169,7 +184,7 @@ func validateRestfulWebServiceMicroservice(appConfig AppConfig) error {
 func validateRecordingAgentMicroservice(appConfig AppConfig) error {
 	am := appConfig.RecordingAgentMicroserviceConfig
 	key := am.Code
-	amMsg := " in validateLogger doesn't match key = "
+	amMsg := " in validateRecordingAgentMicroservice doesn't match key = "
 	if RECORDINGAGENT_MICROSERVICE != key {
 		errMsg := RECORDINGAGENT_MICROSERVICE + amMsg + key
 		return errors.New(errMsg)
@@ -186,7 +201,7 @@ func validateRecordingAgentMicroservice(appConfig AppConfig) error {
 func validateDatabaseMicroservice(appConfig AppConfig) error {
 	am := appConfig.DatabaseMicroserviceConfig
 	key := am.Code
-	amMsg := " in validateLogger doesn't match key = "
+	amMsg := " in validateDatabaseMicroservice doesn't match key = "
 	if DATABASE_MICROSERVICE != key {
 		errMsg := DATABASE_MICROSERVICE + amMsg + key
 		return errors.New(errMsg)
@@ -203,7 +218,7 @@ func validateDatabaseMicroservice(appConfig AppConfig) error {
 func validateServiceDeskPlusMicroservice(appConfig AppConfig) error {
 	am := appConfig.ServiceDeskPlusMicroserviceConfig
 	key := am.Code
-	amMsg := " in validateLogger doesn't match key = "
+	amMsg := " in validateSDPMicroservice doesn't match key = "
 	if SERVICEDESKPLUS_MICROSERVICE != key {
 		errMsg := SERVICEDESKPLUS_MICROSERVICE + amMsg + key
 		return errors.New(errMsg)
@@ -220,7 +235,7 @@ func validateServiceDeskPlusMicroservice(appConfig AppConfig) error {
 func validateFileAndFolderMicroservice(appConfig AppConfig) error {
 	am := appConfig.FileAndFolderMicroserviceConfig
 	key := am.Code
-	amMsg := " in validateLogger doesn't match key = "
+	amMsg := " in validateFileAndFolderMicroservice doesn't match key = "
 	if FILEANDFOLDER_MICROSERVICE != key {
 		errMsg := FILEANDFOLDER_MICROSERVICE + amMsg + key
 		return errors.New(errMsg)
@@ -237,7 +252,7 @@ func validateFileAndFolderMicroservice(appConfig AppConfig) error {
 func validatePdfMicroservice(appConfig AppConfig) error {
 	am := appConfig.PdfMicroserviceConfig
 	key := am.Code
-	amMsg := " in validateLogger doesn't match key = "
+	amMsg := " in validatePDFMiroservice doesn't match key = "
 	if PDF_MICROSERVICE != key {
 		errMsg := PDF_MICROSERVICE + amMsg + key
 		return errors.New(errMsg)
@@ -254,7 +269,7 @@ func validatePdfMicroservice(appConfig AppConfig) error {
 func validateOcrMicroservice(appConfig AppConfig) error {
 	am := appConfig.OcrMicroserviceConfig
 	key := am.Code
-	amMsg := " in validateLogger doesn't match key = "
+	amMsg := " in validateOCRMicroservice doesn't match key = "
 	if OCR_MICROSERVICE != key {
 		errMsg := OCR_MICROSERVICE + amMsg + key
 		return errors.New(errMsg)
@@ -271,9 +286,43 @@ func validateOcrMicroservice(appConfig AppConfig) error {
 func validateEwsMicroservice(appConfig AppConfig) error {
 	am := appConfig.EwsMicroserviceConfig
 	key := am.Code
-	amMsg := " in validateLogger doesn't match key = "
+	amMsg := " in validateExchangeWebServerMicroservice doesn't match key = "
 	if EWS_MICROSERVICE != key {
 		errMsg := EWS_MICROSERVICE + amMsg + key
+		return errors.New(errMsg)
+	}
+	key = am.LogDataConfig.Code
+	if LOG_DATA != key {
+		errMsg := LOG_DATA + amMsg + key
+		return errors.New(errMsg)
+	}
+
+	return nil
+}
+
+func validateMatedriveMicroservice(appConfig AppConfig) error {
+	am := appConfig.MatedriveMicroserviceConfig
+	key := am.Code
+	amMsg := " in validateMateDriveMicroservice doesn't match key = "
+	if MATEDRIVE_MICROSERVICE != key {
+		errMsg := MATEDRIVE_MICROSERVICE + amMsg + key
+		return errors.New(errMsg)
+	}
+	key = am.LogDataConfig.Code
+	if LOG_DATA != key {
+		errMsg := LOG_DATA + amMsg + key
+		return errors.New(errMsg)
+	}
+
+	return nil
+}
+
+func validateDesktopAgentMicroservice(appConfig AppConfig) error {
+	am := appConfig.DesktopAgentMicroserviceConfig
+	key := am.Code
+	amMsg := " in validateDesktopAgentMicroservice doesn't match key = "
+	if DESKTOPAGENT_MICROSERVICE != key {
+		errMsg := DESKTOPAGENT_MICROSERVICE + amMsg + key
 		return errors.New(errMsg)
 	}
 	key = am.LogDataConfig.Code
@@ -315,6 +364,13 @@ func validateDataStore(appConfig AppConfig) error {
 	key = qgc.Code
 	if QUEUE_JSON_DATA != key {
 		errMsg := QUEUE_JSON_DATA + scMsg + key
+		return errors.New(errMsg)
+	}
+
+	acc := appConfig.AutomCenterConfig
+	key = acc.Code
+	if AUTOM_CENTER != key {
+		errMsg := AUTOM_CENTER + scMsg + key
 		return errors.New(errMsg)
 	}
 
@@ -371,6 +427,20 @@ func validateDataStore(appConfig AppConfig) error {
 	key = ewsgc.Code
 	if EWS_GRPC != key {
 		errMsg := EWS_GRPC + scMsg + key
+		return errors.New(errMsg)
+	}
+
+	matedrivegc := appConfig.MatedriveGrpcConfig
+	key = matedrivegc.Code
+	if MATEDRIVE_GRPC != key {
+		errMsg := MATEDRIVE_GRPC + scMsg + key
+		return errors.New(errMsg)
+	}
+
+	dagc := appConfig.DesktopAgentGrpcConfig
+	key = dagc.Code
+	if DESKTOPAGENT_GRPC != key {
+		errMsg := DESKTOPAGENT_GRPC + scMsg + key
 		return errors.New(errMsg)
 	}
 	return nil
@@ -430,6 +500,14 @@ func validateUseCase(useCase UseCaseConfig) error {
 		return errors.Wrap(err, "")
 	}
 	err = validateIfElse(useCase)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	err = validateMatedrive(useCase)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	err = validateDesktopAgent(useCase)
 	if err != nil {
 		return errors.Wrap(err, "")
 	}
@@ -556,7 +634,7 @@ func validateDatabase(useCaseConfig UseCaseConfig) error {
 func validateRecordingAgent(useCaseConfig UseCaseConfig) error {
 	ac := useCaseConfig.RecordingAgent
 	key := ac.Code
-	acMsg := " in validateDatabase doesn't match key = "
+	acMsg := " in validateRecordingAgent doesn't match key = "
 	if RECORDINGAGENT != key {
 		errMsg := RECORDINGAGENT + acMsg + key
 		return errors.New(errMsg)
@@ -578,7 +656,7 @@ func validateRecordingAgent(useCaseConfig UseCaseConfig) error {
 func validateServiceDeskplus(useCaseConfig UseCaseConfig) error {
 	ac := useCaseConfig.ServiceDeskPlus
 	key := ac.Code
-	acMsg := " in validateDatabase doesn't match key = "
+	acMsg := " in validateSDP doesn't match key = "
 	if SERVICEDESKPLUS != key {
 		errMsg := SERVICEDESKPLUS + acMsg + key
 		return errors.New(errMsg)
@@ -600,7 +678,7 @@ func validateServiceDeskplus(useCaseConfig UseCaseConfig) error {
 func validateFileAndFolder(useCaseConfig UseCaseConfig) error {
 	ac := useCaseConfig.FileAndFolder
 	key := ac.Code
-	acMsg := " in validateDatabase doesn't match key = "
+	acMsg := " in validateFileAndFolder doesn't match key = "
 	if FILEANDFOLDER != key {
 		errMsg := FILEANDFOLDER + acMsg + key
 		return errors.New(errMsg)
@@ -622,7 +700,7 @@ func validateFileAndFolder(useCaseConfig UseCaseConfig) error {
 func validatePdf(useCaseConfig UseCaseConfig) error {
 	ac := useCaseConfig.Pdf
 	key := ac.Code
-	acMsg := " in validateDatabase doesn't match key = "
+	acMsg := " in validatePDF doesn't match key = "
 	if PDF != key {
 		errMsg := PDF + acMsg + key
 		return errors.New(errMsg)
@@ -644,7 +722,7 @@ func validatePdf(useCaseConfig UseCaseConfig) error {
 func validateOcr(useCaseConfig UseCaseConfig) error {
 	ac := useCaseConfig.Ocr
 	key := ac.Code
-	acMsg := " in validateDatabase doesn't match key = "
+	acMsg := " in validateOCR doesn't match key = "
 	if OCR != key {
 		errMsg := OCR + acMsg + key
 		return errors.New(errMsg)
@@ -666,7 +744,7 @@ func validateOcr(useCaseConfig UseCaseConfig) error {
 func validateEws(useCaseConfig UseCaseConfig) error {
 	ac := useCaseConfig.Ews
 	key := ac.Code
-	acMsg := " in validateDatabase doesn't match key = "
+	acMsg := " in validateExchangeWebServer doesn't match key = "
 	if EWS != key {
 		errMsg := EWS + acMsg + key
 		return errors.New(errMsg)
@@ -682,6 +760,48 @@ func validateEws(useCaseConfig UseCaseConfig) error {
 		return errors.New(errMsg)
 	}
 
+	return nil
+}
+
+func validateMatedrive(useCaseConfig UseCaseConfig) error {
+	ac := useCaseConfig.Matedrive
+	key := ac.Code
+	acMsg := " in validateMateDrive doesn't match key = "
+	if MATEDRIVE != key {
+		errMsg := MATEDRIVE + acMsg + key
+		return errors.New(errMsg)
+	}
+	key = ac.LogDataConfig.Code
+	if LOG_DATA != key {
+		errMsg := LOG_DATA + acMsg + key
+		return errors.New(errMsg)
+	}
+	key = ac.MicroserviceConfig.Code
+	if MATEDRIVE_MICROSERVICE != key {
+		errMsg := MATEDRIVE_MICROSERVICE + acMsg + key
+		return errors.New(errMsg)
+	}
+	return nil
+}
+
+func validateDesktopAgent(useCaseConfig UseCaseConfig) error {
+	ac := useCaseConfig.DesktopAgent
+	key := ac.Code
+	acMsg := " in validateDesktopAgent doesn't match key = "
+	if DESKTOPAGENT != key {
+		errMsg := DESKTOPAGENT + acMsg + key
+		return errors.New(errMsg)
+	}
+	key = ac.LogDataConfig.Code
+	if LOG_DATA != key {
+		errMsg := LOG_DATA + acMsg + key
+		return errors.New(errMsg)
+	}
+	key = ac.MicroserviceConfig.Code
+	if DESKTOPAGENT_MICROSERVICE != key {
+		errMsg := DESKTOPAGENT_MICROSERVICE + acMsg + key
+		return errors.New(errMsg)
+	}
 	return nil
 }
 

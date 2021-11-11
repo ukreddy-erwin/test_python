@@ -10,6 +10,7 @@ message PdfSessionReq {
   string actionName = 1;
   string operationId = 2;
   repeated Dictionary pdfReq = 3;
+  string version = 4;
 }
 
 message PdfSessionResp {

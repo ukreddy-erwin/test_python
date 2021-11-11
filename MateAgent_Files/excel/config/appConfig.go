@@ -5,30 +5,71 @@ package config
 
 import (
 	"fmt"
+	"io/ioutil"
+
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
-	"io/ioutil"
 )
 
 // AppConfig represents the application config
 type AppConfig struct {
-	GatewayGrpcConfig  	DataStoreConfig `yaml:"gatewayGrpcConfig"`
-	ExcelGrpcConfig  	DataStoreConfig `yaml:"excelGrpcConfig"`
-	ZapConfig       	LogConfig       `yaml:"zapConfig"`
-	LogrusConfig     	LogConfig       `yaml:"logrusConfig"`
-	Log             	LogConfig       `yaml:"logConfig"`
-	UseCase         	UseCaseConfig   `yaml:"useCaseConfig"`
+	GatewayGrpcConfig DataStoreConfig `yaml:"gatewayGrpcConfig"`
+	ExcelGrpcConfig   DataStoreConfig `yaml:"excelGrpcConfig"`
+	ZapConfig         LogConfig       `yaml:"zapConfig"`
+	LogrusConfig      LogConfig       `yaml:"logrusConfig"`
+	Log               LogConfig       `yaml:"logConfig"`
+	UseCase           UseCaseConfig   `yaml:"useCaseConfig"`
 }
 
 // UseCaseConfig represents different use cases
 type UseCaseConfig struct {
-	Excel		ExcelConfig   `yaml:"excel"`
+	Excel       ExcelConfig       `yaml:"excel"`
+	Copy        CopyConfig        `yaml:"copy"`
+	Paste       PasteConfig       `yaml:"paste"`
+	CreatePivot CreatePivotConfig `yaml:"createPivot"`
+	ExcelToCsv  ExcelToCsvConfig  `yaml:"excelToCsv"`
+	VLookoup    VLookupConfig     `yaml:"vlookup"`
+	ReadSheet   ReadSheetConfig   `yaml:"readSheet"`
 }
 
-// ExcelConfig represents active directory use case
+// ExcelConfig represents excel use case
 type ExcelConfig struct {
-	Code            string     `yaml:"code"`
-	LogDataConfig  	DataConfig `yaml:"logDataConfig"`
+	Code          string     `yaml:"code"`
+	LogDataConfig DataConfig `yaml:"logDataConfig"`
+}
+
+type VLookupConfig struct {
+	Code          string     `yaml:"code"`
+	LogDataConfig DataConfig `yaml:"logDataConfig"`
+}
+
+type ReadSheetConfig struct {
+	Code          string     `yaml:"code"`
+	LogDataConfig DataConfig `yaml:"logDataConfig"`
+}
+
+// CopyConfig represents excel use case
+type CopyConfig struct {
+	Code          string     `yaml:"code"`
+	LogDataConfig DataConfig `yaml:"logDataConfig"`
+}
+
+// PasteConfig represents excel use case
+type PasteConfig struct {
+	Code          string     `yaml:"code"`
+	LogDataConfig DataConfig `yaml:"logDataConfig"`
+}
+
+// CreatePivotConfig represents excel use case
+type CreatePivotConfig struct {
+	Code          string     `yaml:"code"`
+	LogDataConfig DataConfig `yaml:"logDataConfig"`
+}
+
+// CreatePivotConfig represents excel use case
+type ExcelToCsvConfig struct {
+	Code          string     `yaml:"code"`
+	LogDataConfig DataConfig `yaml:"logDataConfig"`
 }
 
 // DataConfig represents data service

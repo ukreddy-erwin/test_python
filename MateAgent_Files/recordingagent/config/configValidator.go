@@ -18,7 +18,7 @@ const (
 // use case code. Need to map to the use case code (UseCaseConfig) in the configuration yaml file.
 // Client app use those to retrieve use case from the container
 const (
-	BROWSER_DOM string = "browserdom"
+	CHROME_RECORD string = "chromeRecord"
 )
 
 func validateConfig(appConfig AppConfig) error {
@@ -70,7 +70,7 @@ func validateDataStore(appConfig AppConfig) error {
 }
 
 func validateUseCase(useCase UseCaseConfig) error {
-	err := validateBrowserDom(useCase)
+	err := validateChromeRecord(useCase)
 	if err != nil {
 		return errors.Wrap(err, "")
 	}
@@ -78,12 +78,12 @@ func validateUseCase(useCase UseCaseConfig) error {
 	return nil
 }
 
-func validateBrowserDom(useCaseConfig UseCaseConfig) error {
-	rc := useCaseConfig.BrowserDom
+func validateChromeRecord(useCaseConfig UseCaseConfig) error {
+	rc := useCaseConfig.ChromeRecord
 	key := rc.Code
 	rcMsg := " in validateRegistration doesn't match key = "
-	if BROWSER_DOM != key {
-		errMsg := BROWSER_DOM + rcMsg + key
+	if CHROME_RECORD != key {
+		errMsg := CHROME_RECORD + rcMsg + key
 		return errors.New(errMsg)
 	}
 

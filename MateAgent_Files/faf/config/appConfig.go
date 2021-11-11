@@ -29,6 +29,8 @@ type UseCaseConfig struct {
 	CopyFolder   CopyFolderConfig   `yaml:"copyFolder"`
 	CreateFolder CreateFolderConfig `yaml:"createFolder"`
 	DeleteFolder DeleteFolderConfig `yaml:"deleteFolder"`
+	MoveFolder   MoveFolderConfig   `yaml:"moveFolder"`
+	MoveFile     MoveFileConfig     `yaml:"moveFile"`
 }
 
 // CopyFileConfig represents add request use case
@@ -56,6 +58,15 @@ type CreateFolderConfig struct {
 
 // DeleteFolderConfig represents add request use case
 type DeleteFolderConfig struct {
+	Code string `yaml:"code"`
+}
+
+// MoveFolderConfig represents add request use case
+type MoveFolderConfig struct {
+	Code string `yaml:"code"`
+}
+
+type MoveFileConfig struct {
 	Code string `yaml:"code"`
 }
 

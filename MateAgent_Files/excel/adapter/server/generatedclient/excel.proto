@@ -25,14 +25,18 @@ message ReadData {
 message ExcelSessionReq {
   string actionName = 1;
   repeated Dictionary excelReq = 2;
+  string operationId = 3;
+  string version = 4;
 }
 
 message ExcelSessionResp {
   string message = 1;
   bool status = 2;
-  repeated Dictionary data = 3;
-  string set = 4;
-  string logMessage = 5;
+  string set = 3;
+  string logMessage = 4;
+  repeated Dictionary data = 5;
+  bytes byteData = 6;
+  string filePath = 7;
 }
 
 message Dictionary {

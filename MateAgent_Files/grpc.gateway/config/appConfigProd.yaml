@@ -1,3 +1,7 @@
+automCenterConfig: &automCenterConfig
+  code: automCenter
+  url: 127.0.0.1
+  port: 5049
 logJsonDataConfig: &logJsonDataConfig
   code: logJsonData
   path: /logs/
@@ -50,6 +54,14 @@ ewsGrpcConfig: &ewsGrpcConfig
   code: ewsGrpc
   driverName: tcp
   urlAddress: 127.0.0.1:5061
+matedriveGrpcConfig: &matedriveGrpcConfig
+  code: matedriveGrpc
+  driverName: tcp
+  urlAddress: 127.0.0.1:5062
+desktopAgentGrpcConfig: &desktopAgentGrpcConfig
+  code: desktopAgentConfig
+  driverName: tcp
+  urlAddress: 127.0.0.1:5063
 zapConfig: &zapConfig
   code: zap
   level: debug
@@ -106,6 +118,16 @@ ocrMicroserviceConfig: &ocrMicroserviceConfig
     dataStoreConfig: *logJsonDataConfig
 ewsMicroserviceConfig: &ewsMicroserviceConfig
   code: ewsMicroservice
+  logDataConfig: &logDataConfig
+    code: logData
+    dataStoreConfig: *logJsonDataConfig
+matedriveMicroserviceConfig: &matedriveMicroserviceConfig
+  code: matedriveMicroservice
+  logDataConfig: &logDataConfig
+    code: logData
+    dataStoreConfig: *logJsonDataConfig
+desktopAgentMicroserviceConfig: &desktopAgentMicroserviceConfig
+  code: desktopAgentMicroservice
   logDataConfig: &logDataConfig
     code: logData
     dataStoreConfig: *logJsonDataConfig
@@ -171,6 +193,24 @@ useCaseConfig:
     logDataConfig: &logDataConfig
       code: logData
       dataStoreConfig: *logJsonDataConfig
+  ews:
+    code: ews
+    microserviceConfig: *ewsMicroserviceConfig
+    logDataConfig: &logDataConfig
+      code: logData
+      dataStoreConfig: *logJsonDataConfig
+  matedrive:
+    code: matedrive
+    microserviceConfig: *matedriveMicroserviceConfig
+    logDataConfig: &logDataConfig
+      code: logData
+      dataStoreConfig: *logJsonDataConfig
+  desktopAgent:
+    code: desktopAgent
+    microserviceConfig: *desktopAgentMicroserviceConfig
+    logDataConfig: &logDataConfig
+      code: logData
+      dataStoreConfig: *logJsonDataConfig
   loop:
     code: loop
     logDataConfig: &logDataConfig
@@ -178,36 +218,6 @@ useCaseConfig:
       dataStoreConfig: *logJsonDataConfig
   ifelse:
     code: ifElse
-    logDataConfig: &logDataConfig
-      code: logData
-      dataStoreConfig: *logJsonDataConfig
-  addAccount:
-    code: addAccount
-    logDataConfig: &logDataConfig
-      code: logData
-      dataStoreConfig: *logJsonDataConfig
-  removeUser:
-    code: removeUser
-    logDataConfig: &logDataConfig
-      code: logData
-      dataStoreConfig: *logJsonDataConfig
-  addUserToMailGroup:
-    code: addUserToMailGroup
-    logDataConfig: &logDataConfig
-      code: logData
-      dataStoreConfig: *logJsonDataConfig
-  disable:
-    code: disable
-    logDataConfig: &logDataConfig
-      code: logData
-      dataStoreConfig: *logJsonDataConfig
-  delete:
-    code: delete
-    logDataConfig: &logDataConfig
-      code: logData
-      dataStoreConfig: *logJsonDataConfig
-  changeMailboxSize:
-    code: changeMailboxSize
     logDataConfig: &logDataConfig
       code: logData
       dataStoreConfig: *logJsonDataConfig

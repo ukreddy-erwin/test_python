@@ -1,0 +1,12 @@
+nssm.exe start MAGateway
+nssm.exe start MAAD
+nssm.exe start MADB
+nssm.exe start MAEXCEL
+nssm.exe start MAPDF
+nssm.exe start MAFAF
+nssm.exe start MARWS
+nssm.exe start MASDP
+nssm.exe start MARA
+nssm.exe start MAMD
+nssm.exe start MAEWS
+nssm.exe start MADA

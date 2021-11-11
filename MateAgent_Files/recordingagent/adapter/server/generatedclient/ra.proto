@@ -9,6 +9,8 @@ service RecordingAgentService {
 message RASessionReq {
   string actionName = 1;
   repeated Dictionary raReq = 2;
+  string operationId = 3;
+  string version = 4;
 }
 
 message RASessionResp {
@@ -16,7 +18,7 @@ message RASessionResp {
   bool status = 2;
   string set = 3;
   string logMessage = 4;
-  ReqResponse responseData = 5;
+  string data = 5;
 }
 
 message ReqResponse {

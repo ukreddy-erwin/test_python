@@ -1,0 +1,12 @@
+nssm.exe stop MAGateway
+nssm.exe stop MAAD
+nssm.exe stop MADB
+nssm.exe stop MAEXCEL
+nssm.exe stop MAPDF
+nssm.exe stop MAFAF
+nssm.exe stop MARWS
+nssm.exe stop MASDP
+nssm.exe stop MARA
+nssm.exe stop MAMD
+nssm.exe stop MAEWS
+nssm.exe stop MADA

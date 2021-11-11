@@ -18,11 +18,18 @@ const (
 // use case code. Need to map to the use case code (UseCaseConfig) in the configuration yaml file.
 // Client app use those to retrieve use case from the container
 const (
-	CONNECT      string = "connect"
-	CREATE_USER  string = "createUser"
-	UPDATE_USER  string = "updateUser"
-	DISABLE_USER string = "disableUser"
-	SEARCH_USER  string = "searchUser"
+	CONNECT                string = "connect"
+	CREATE_USER            string = "createUser"
+	UPDATE_USER            string = "updateUser"
+	DISABLE_USER           string = "disableUser"
+	SEARCH_USER            string = "searchUser"
+	ADD_USER_TO_GROUP      string = "addUserToGroup"
+	CREATE_GROUP           string = "createGroup"
+	DELETE_USER            string = "deleteUser"
+	ENABLE_USER            string = "enableUser"
+	MOVE_USER              string = "moveUser"
+	REMOVE_USER_FROM_GROUP string = "removeUserFromGroup"
+	UNLOCK_USER            string = "unlockUser"
 )
 
 func validateConfig(appConfig AppConfig) error {
@@ -94,6 +101,34 @@ func validateUseCase(useCase UseCaseConfig) error {
 	if err != nil {
 		return errors.Wrap(err, "")
 	}
+	err = validateAddUserToGroup(useCase)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	err = validateCreateGroup(useCase)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	err = validateDeleteUser(useCase)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	err = validateEnableUser(useCase)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	err = validateMoveUser(useCase)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	err = validateRemoveUserFromGroup(useCase)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
+	err = validateUnlockUser(useCase)
+	if err != nil {
+		return errors.Wrap(err, "")
+	}
 	return nil
 }
 
@@ -151,6 +186,90 @@ func validateSearchUser(useCaseConfig UseCaseConfig) error {
 	acMsg := " in validateListUser doesn't match key = "
 	if SEARCH_USER != key {
 		errMsg := SEARCH_USER + acMsg + key
+		return errors.New(errMsg)
+	}
+
+	return nil
+}
+
+func validateAddUserToGroup(useCaseConfig UseCaseConfig) error {
+	ac := useCaseConfig.AddUserToGroup
+	key := ac.Code
+	acMsg := " in validateListUser doesn't match key = "
+	if ADD_USER_TO_GROUP != key {
+		errMsg := ADD_USER_TO_GROUP + acMsg + key
+		return errors.New(errMsg)
+	}
+
+	return nil
+}
+
+func validateCreateGroup(useCaseConfig UseCaseConfig) error {
+	ac := useCaseConfig.CreateGroup
+	key := ac.Code
+	acMsg := " in validateListUser doesn't match key = "
+	if CREATE_GROUP != key {
+		errMsg := CREATE_GROUP + acMsg + key
+		return errors.New(errMsg)
+	}
+
+	return nil
+}
+
+func validateDeleteUser(useCaseConfig UseCaseConfig) error {
+	ac := useCaseConfig.DeleteUser
+	key := ac.Code
+	acMsg := " in validateListUser doesn't match key = "
+	if DELETE_USER != key {
+		errMsg := DELETE_USER + acMsg + key
+		return errors.New(errMsg)
+	}
+
+	return nil
+}
+
+func validateEnableUser(useCaseConfig UseCaseConfig) error {
+	ac := useCaseConfig.EnableUser
+	key := ac.Code
+	acMsg := " in validateListUser doesn't match key = "
+	if ENABLE_USER != key {
+		errMsg := ENABLE_USER + acMsg + key
+		return errors.New(errMsg)
+	}
+
+	return nil
+}
+
+func validateMoveUser(useCaseConfig UseCaseConfig) error {
+	ac := useCaseConfig.MoveUser
+	key := ac.Code
+	acMsg := " in validateListUser doesn't match key = "
+	if MOVE_USER != key {
+		errMsg := MOVE_USER + acMsg + key
+		return errors.New(errMsg)
+	}
+
+	return nil
+}
+
+func validateRemoveUserFromGroup(useCaseConfig UseCaseConfig) error {
+	ac := useCaseConfig.RemoveUserFromGroup
+	key := ac.Code
+	acMsg := " in validateListUser doesn't match key = "
+	if REMOVE_USER_FROM_GROUP != key {
+		errMsg := REMOVE_USER_FROM_GROUP + acMsg + key
+		return errors.New(errMsg)
+	}
+
+	return nil
+}
+
+func validateUnlockUser(useCaseConfig UseCaseConfig) error {
+	ac := useCaseConfig.UnlockUser
+	key := ac.Code
+	acMsg := " in validateListUser doesn't match key = "
+	if UNLOCK_USER != key {
+		errMsg := UNLOCK_USER + acMsg + key
 		return errors.New(errMsg)
 	}
 

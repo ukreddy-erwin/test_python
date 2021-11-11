@@ -1,0 +1,41 @@
+syntax = "proto3";
+package desktopagentgeneratedclient;
+option go_package = "./;dapb";
+
+service DesktopAgentService {
+  rpc DesktopAgentSession(stream DesktopAgentSessionReq) returns (stream DesktopAgentSessionResp) {};
+}
+
+message DesktopAgentSessionReq {
+  string actionName = 1;
+  string operationId = 2;
+  repeated Dictionary desktopAgentReq = 3;
+  string version = 4;
+}
+
+message DesktopAgentSessionResp {
+  string message = 1;
+  bool status = 2;
+  string set = 3;
+  string logMessage = 4;
+  string dataString = 5;
+  Dictionary data = 6;
+}
+
+message ReqResponse {
+  string response = 1;
+  string type = 2;
+}
+
+message Dictionary {
+  string key = 1;
+  string value = 2;
+  bytes byteValue = 3;
+  repeated string listValue = 4;
+  repeated ListDictionary dictionaryValue = 5;
+}
+
+message ListDictionary {
+  string key = 1;
+  string value = 2;
+}
